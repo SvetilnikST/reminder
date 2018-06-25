@@ -16,7 +16,7 @@ import java.util.Map;
 @LocalBean
 @Stateless
 public class UserDAOBean {
-    @PersistenceContext(unitName = "control-app")
+    @PersistenceContext(unitName = "reminder-app")
     private EntityManager entityManager;
     //CRUD
     public UserEntity read(int id) {

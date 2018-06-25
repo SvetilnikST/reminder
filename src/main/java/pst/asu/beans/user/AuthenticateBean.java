@@ -25,7 +25,7 @@ public class AuthenticateBean {
     }
 
 //    @Inject
-    @PersistenceContext(unitName = "control-app")
+    @PersistenceContext(unitName = "reminder-app")
     private EntityManager entityManager;
 
 

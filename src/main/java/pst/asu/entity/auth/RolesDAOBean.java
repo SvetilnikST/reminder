@@ -11,7 +11,7 @@ import java.util.List;
 @LocalBean
 @Stateless
 public class RolesDAOBean {
-    @PersistenceContext(unitName = "control-app")
+    @PersistenceContext(unitName = "reminder-app")
     private EntityManager entityManager;
 
     //CRUD

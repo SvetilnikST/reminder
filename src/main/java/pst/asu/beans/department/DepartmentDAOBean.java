@@ -15,7 +15,7 @@ import java.util.Map;
 @Stateless
 public class DepartmentDAOBean {
 
-    @PersistenceContext(unitName = "control-app")
+    @PersistenceContext(unitName = "reminder-app")
     private EntityManager entityManager;
 
     public TblDepartmentEntity read(int id) {

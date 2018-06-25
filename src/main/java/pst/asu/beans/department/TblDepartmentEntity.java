@@ -1,5 +1,7 @@
 package pst.asu.beans.department;
 
+import pst.asu.entity.auth.UserEntity;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,7 +14,7 @@ public class TblDepartmentEntity{
     @Column(name = "idDepartment", nullable = false)
     private int idDepartment;
 
-    @Column(name = "Department", nullable = false, length = 20)
+    @Column(name = "department", nullable = false, length = 20)
     private String department;
 
     public int getIdDepartment() {
@@ -32,15 +34,14 @@ public class TblDepartmentEntity{
     }
 
 
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "departmentEntity")
-//    private Set<OrderEntity> orderEntitySet = new HashSet<>();
-//
-//    public Set<OrderEntity> getOrderEntitySet() {
-//        return orderEntitySet;
-//    }
-//
-//    public void setOrderEntitySet(Set<OrderEntity> orderEntitySet) {
-//        this.orderEntitySet = orderEntitySet;
-//    }
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "departmentEntity")
+    private Set<UserEntity> userEntitySet = new HashSet<>();
 
+    public Set<UserEntity> getUserEntitySet() {
+        return userEntitySet;
+    }
+
+    public void setUserEntitySet(Set<UserEntity> userEntitySet) {
+        this.userEntitySet = userEntitySet;
+    }
 }

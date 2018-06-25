@@ -1,9 +1,9 @@
 package pst.asu.entity.auth;
 
 import pst.asu.beans.department.TblDepartmentEntity;
+import pst.asu.beans.task.TblTaskEntity;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -54,6 +54,18 @@ public class UserEntity {
     @ManyToOne
     @JoinColumn(name = "department")
     private TblDepartmentEntity departmentEntity;
+
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userEntity")
+    private Set<TblTaskEntity> tblTaskEntitySet = new HashSet<>();
+
+    public Set<TblTaskEntity> getTblTaskEntitySet() {
+        return tblTaskEntitySet;
+    }
+
+    public void setTblTaskEntitySet(Set<TblTaskEntity> tblTaskEntitySet) {
+        this.tblTaskEntitySet = tblTaskEntitySet;
+    }
 
     public TblDepartmentEntity getDepartmentEntity() {
         return departmentEntity;
