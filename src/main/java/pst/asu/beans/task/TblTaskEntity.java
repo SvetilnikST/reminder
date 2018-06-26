@@ -1,12 +1,8 @@
 package pst.asu.beans.task;
 
 import pst.asu.entity.auth.UserEntity;
-
-
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table (name = "tblTask")
@@ -31,66 +27,67 @@ public class TblTaskEntity {
   private String executor;
 
   @ManyToOne
-  @JoinColumn(name = "viewTask")
+  @JoinColumn(name = "idViewTask")
   private TblTaskEntity tblTaskEntity;
 
   @ManyToOne
-  @JoinColumn(name = "user")
+  @JoinColumn(name = "idUser")
   private UserEntity userEntity;
 
-  public int getIdTask() {
-    return idTask;
-  }
+    public int getIdTask() {
+        return idTask;
+    }
 
-  public void setIdTask(int idTask) {
-    this.idTask = idTask;
-  }
+    public void setIdTask(int idTask) {
+        this.idTask = idTask;
+    }
 
-  public String getName() {
-    return name;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  public Timestamp getDateStarted() {
-    return dateStarted;
-  }
+    public Timestamp getDateStarted() {
+        return dateStarted;
+    }
 
-  public void setDateStarted(Timestamp dateStarted) {
-    this.dateStarted = dateStarted;
-  }
+    public void setDateStarted(Timestamp dateStarted) {
+        this.dateStarted = dateStarted;
+    }
 
-  public Timestamp getDateEnd() {
-    return dateEnd;
-  }
+    public Timestamp getDateEnd() {
+        return dateEnd;
+    }
 
-  public void setDateEnd(Timestamp dateEnd) {
-    this.dateEnd = dateEnd;
-  }
+    public void setDateEnd(Timestamp dateEnd) {
+        this.dateEnd = dateEnd;
+    }
 
-  public String getExecutor() {
-    return executor;
-  }
+    public String getExecutor() {
+        return executor;
+    }
 
-  public void setExecutor(String executor) {
-    this.executor = executor;
-  }
+    public void setExecutor(String executor) {
+        this.executor = executor;
+    }
 
-  public UserEntity getUserEntity() {
-    return userEntity;
-  }
+    public TblTaskEntity getTblTaskEntity() {
+        return tblTaskEntity;
+    }
 
-  public void setUserEntity(UserEntity userEntity) {
-    this.userEntity = userEntity;
-  }
+    public void setTblTaskEntity(TblTaskEntity tblTaskEntity) {
+        this.tblTaskEntity = tblTaskEntity;
+    }
 
-  public TblTaskEntity getTblTaskEntity() {
-    return tblTaskEntity;
-  }
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
 
-  public void setTblTaskEntity(TblTaskEntity tblTaskEntity) {
-    this.tblTaskEntity = tblTaskEntity;
-  }
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
+    }
+
 }

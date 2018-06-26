@@ -40,9 +40,6 @@ public class UserEntity {
     @Column(name = "updated_at",nullable = false)
     private int updated_at;
 
-//    @Column(name = "department",nullable = false)
-//    private int department;
-
     @ManyToMany ( fetch = FetchType.EAGER)
     @JoinTable(name = "tblUserRole",
             //foreign key for CarsEntity in employee_car table
@@ -55,33 +52,8 @@ public class UserEntity {
     @JoinColumn(name = "department")
     private TblDepartmentEntity departmentEntity;
 
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userEntity")
     private Set<TblTaskEntity> tblTaskEntitySet = new HashSet<>();
-
-    public Set<TblTaskEntity> getTblTaskEntitySet() {
-        return tblTaskEntitySet;
-    }
-
-    public void setTblTaskEntitySet(Set<TblTaskEntity> tblTaskEntitySet) {
-        this.tblTaskEntitySet = tblTaskEntitySet;
-    }
-
-    public TblDepartmentEntity getDepartmentEntity() {
-        return departmentEntity;
-    }
-
-    public void setDepartmentEntity(TblDepartmentEntity departmentEntity) {
-        this.departmentEntity = departmentEntity;
-    }
-
-    public Set<RolesEntity> getUserRoleEntitySet() {
-        return userRoleEntitySet;
-    }
-
-    public void setUserRoleEntitySet(Set<RolesEntity> userRoleEntitySet) {
-        this.userRoleEntitySet = userRoleEntitySet;
-    }
 
     public int getId() {
         return id;
@@ -155,11 +127,27 @@ public class UserEntity {
         this.updated_at = updated_at;
     }
 
-//    public int getDepartment() {
-//        return department;
-//    }
-//
-//    public void setDepartment(int department) {
-//        this.department = department;
-//    }
+    public Set<RolesEntity> getUserRoleEntitySet() {
+        return userRoleEntitySet;
+    }
+
+    public void setUserRoleEntitySet(Set<RolesEntity> userRoleEntitySet) {
+        this.userRoleEntitySet = userRoleEntitySet;
+    }
+
+    public TblDepartmentEntity getDepartmentEntity() {
+        return departmentEntity;
+    }
+
+    public void setDepartmentEntity(TblDepartmentEntity departmentEntity) {
+        this.departmentEntity = departmentEntity;
+    }
+
+    public Set<TblTaskEntity> getTblTaskEntitySet() {
+        return tblTaskEntitySet;
+    }
+
+    public void setTblTaskEntitySet(Set<TblTaskEntity> tblTaskEntitySet) {
+        this.tblTaskEntitySet = tblTaskEntitySet;
+    }
 }

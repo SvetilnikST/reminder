@@ -16,24 +16,24 @@ public class TblViewTaskEntity {
   @Column(name="viewTask", nullable = false, length = 20)
   private String viewTask;
 
-  public long getIdViewTask() {
-    return idViewTask;
-  }
-
-  public void setIdViewTask(long idViewTask) {
-    this.idViewTask = idViewTask;
-  }
-
-  public String getViewTask() {
-    return viewTask;
-  }
-
-  public void setViewTask(String viewTask) {
-    this.viewTask = viewTask;
-  }
-
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "viewTaskEntity")
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "tblTaskEntity")
   private Set<TblTaskEntity> taskEntitySet = new HashSet<>();
+
+    public long getIdViewTask() {
+        return idViewTask;
+    }
+
+    public void setIdViewTask(long idViewTask) {
+        this.idViewTask = idViewTask;
+    }
+
+    public String getViewTask() {
+        return viewTask;
+    }
+
+    public void setViewTask(String viewTask) {
+        this.viewTask = viewTask;
+    }
 
     public Set<TblTaskEntity> getTaskEntitySet() {
         return taskEntitySet;

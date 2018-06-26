@@ -44,4 +44,7 @@ public class TblDepartmentEntity{
     public void setUserEntitySet(Set<UserEntity> userEntitySet) {
         this.userEntitySet = userEntitySet;
     }
+
+
+
 }
