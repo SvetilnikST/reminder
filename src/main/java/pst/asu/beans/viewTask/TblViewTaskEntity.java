@@ -12,7 +12,7 @@ public class TblViewTaskEntity {
 
   @Id
   @Column (name = "idViewTask", nullable = false)
-  private long idViewTask;
+  private int idViewTask;
   @Column(name="viewTask", nullable = false, length = 20)
   private String viewTask;
 
@@ -23,7 +23,7 @@ public class TblViewTaskEntity {
         return idViewTask;
     }
 
-    public void setIdViewTask(long idViewTask) {
+    public void setIdViewTask(int idViewTask) {
         this.idViewTask = idViewTask;
     }
 
