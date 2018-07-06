@@ -6,20 +6,21 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Date;
+
 
 @LocalBean
 @Stateless
 public class TaskDAOBean {
 
-    @PersistenceContext (unitName = "reminder-app")
+    @PersistenceContext(unitName = "reminder-app")
     private EntityManager entityManager;
 
-    public TblTaskEntity read(int id){
-        return entityManager.find(TblTaskEntity.class, id);
+    public TblTaskEntity read(int idTask) {
+        return entityManager.find(TblTaskEntity.class, idTask);
     }
 
-
-    public List<TblTaskEntity> readList() {
+    public List<TblTaskEntity> readTaskList() {
 
         TypedQuery<TblTaskEntity> query = entityManager.createQuery(
                 "from TblTaskEntity entity",
@@ -30,7 +31,7 @@ public class TaskDAOBean {
         return tblTaskEntities;
     }
 
-    public int getTotalCount(){
+    public int getTotalCount() {
         Long rez = entityManager.createQuery(
                 "select count (entity.idTask) from TblTaskEntity entity",
                 Long.class)

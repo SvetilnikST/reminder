@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html" xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="WEB-INF/template/template.xhtml">
+    <ui:define name="page_title">
+        Задача
+    </ui:define>
+    <ui:define name="page_body">
+        <h:form>
+            <p:panel>
+                <h2>
+                    <p:outputLabel rendered="#{userAdministration.id==0 or userAdministration.id==null}">
+                        Новая задача
+                    </p:outputLabel>
+                    <p:outputLabel rendered="#{userAdministration.id!=0 and userAdministration.id!=null}"
+                                   value="Изменение данных о задаче #{taskAdministration.idTask} "/>
+                </h2>
+                <p:panelGrid styleClass="ui-panelgrid-blank">
+                    <p:row>
+                        <p:column colspan="1">
+                            <h:outputText value="Наименование"/>
+                        </p:column>
+                        <p:column colspan="1">
+                            <h:outputText value="Дата начала"/>
+                        </p:column>
+                        <p:column colspan="1">
+                            <h:outputText value="Дата окончания"/>
+                        </p:column>
+
+                        <p:column colspan="3">
+                            <h:outputText value="Подразделение"/>
+                        </p:column>
+                        <p:column colspan="3">
+                            <h:outputText value="ответственный"/>
+                        </p:column>
+                        <p:column colspan="3">
+                            <h:outputText value="вид задачи"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="1">
+                            <p:inputText id="name" value="#{taskAdministration.name}"
+                                         title="name"/>
+                        </p:column>
+                        <p:column colspan="1">
+                            <!--<p:inputText id="dateStart" value="#{taskAdministration.dateStarted}"-->
+                                         <!--title="dateStart"/>-->
+                            <p:calendar id="dateStart" value="#{taskAdministration.dateStarted}"
+                                        pattern="dd.MM.yyyy HH:mm" lang="ru" locale="ru"
+                                        title="Дата выдачи задачи"
+                                      />
+
+                        </p:column>
+                        <p:column colspan="1">
+                            <!--<p:inputText id="dateEnd" value="#{taskAdministration.dateEnd}"-->
+                                         <!--title="Статус"/>-->
+                            <p:calendar id="dateEnd" value="#{taskAdministration.dateEnd}"
+                                        pattern="dd.MM.yyyy HH:mm" lang="ru" locale="ru"
+                                        title="Дата заверршения задачи"
+                            />
+
+
+                        </p:column>
+                        <p:column colspan="3">
+
+                            <p:selectOneMenu id="idDepartment" value="#{userAdministration.departmentEntity}"
+                                             converter="omnifaces.SelectItemsConverter"
+                                             var="dep"
+                            >
+                                <f:selectItems value="#{userAdministration.departmentList}" var="department"
+                                               itemLabel="#{department.department}" itemValue="#{department}"/>
+                                <p:column>
+                                    <h:outputText value="#{dep.department}"/>
+                                </p:column>
+                            </p:selectOneMenu>
+                        </p:column>
+
+                        <p:column colspan="3">
+                            <p:inputText id="executor" value="#{taskAdministration.executor}"
+                                         title="Исполнитель"/>
+                        </p:column>
+                        <p:column colspan="3">
+                            <!--<p:inputText id="viewTask" value="#{taskAdministration.viewTaskEntity.viewTask}"-->
+                                         <!--title="Вид задачи"/>-->
+
+                            <p:selectOneMenu id="idViewTask" value="#{taskAdministration.viewTaskEntity}"
+                                             converter="omnifaces.SelectItemsConverter"
+                                             var="viewTasks"
+                            >
+                                <f:selectItems value="#{taskAdministration.viewTaskList}" var="viewTask"
+                                               itemLabel="#{viewTask.viewTask}" itemValue="#{viewTask}"/>
+                                <p:column>
+                                    <h:outputText value="#{viewTasks.viewTask}"/>
+                                </p:column>
+                            </p:selectOneMenu>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+
+                <p:commandButton value="Сохранить" action="#{userAdministration.save()}"
+                                 rendered="#{userBean.doRightVerify('createUser')}"/>
+            </p:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>
+

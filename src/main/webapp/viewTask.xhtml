@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: BoostBrain
+  Date: 12.06.17
+  Time: 20:33
+-->
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html" xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="WEB-INF/template/template.xhtml"
+>
+
+    <ui:define name="page_title">
+        Задача
+    </ui:define>
+
+    <ui:define name="page_body">
+        <h:form>
+            <p:panel>
+                <h2>Задача <p:outputLabel value="#{taskAdministration.idTask}"/></h2>
+                <p:button outcome="editTask" value="Изменить" icon="ui-icon-edit"
+                          rendered="#{userBean.doRightVerify('createUser')}">
+                    <f:param name="idTask" value="#{taskAdministration.idTask}"/>
+                </p:button>
+                <p:spacer/>
+
+                <p:panelGrid>
+                    <p:row>
+                        <p:column colspan="1">Наименование:</p:column>
+                        <p:column colspan="1"><h:outputText
+                                value="#{taskAdministration.name}"/></p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column colspan="1">Дата начала:</p:column>
+                        <p:column colspan="1"><h:outputText value="#{taskAdministration.dateStarted}"/></p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column colspan="1">Дата окончания:</p:column>
+                        <p:column colspan="1"><h:outputText value="#{taskAdministration.dateEnd}"/></p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column colspan="1">Подразделение:</p:column>
+                        <p:column colspan="1">
+                            <h:outputText value="#{userAdministration.departmentEntity.department}">
+                                <f:convertDateTime pattern="dd MMMM YYYY г., HH:mm"/>
+                            </h:outputText>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column colspan="1">Исполнитель:</p:column>
+                        <p:column colspan="1">
+                            <h:outputText value="#{taskAdministration.executor}">
+                            </h:outputText>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column colspan="1">Вид задачи:</p:column>
+                        <p:column colspan="1">
+                            <h:outputText value="#{taskAdministration.viewTaskEntity.viewTask}">
+                            </h:outputText>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+                <br/>
+            </p:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>
+

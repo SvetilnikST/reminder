@@ -1,5 +1,6 @@
 package pst.asu.beans.task;
 
+import pst.asu.beans.viewTask.TblViewTaskEntity;
 import pst.asu.entity.auth.UserEntity;
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -28,7 +29,7 @@ public class TblTaskEntity {
 
   @ManyToOne
   @JoinColumn(name = "idViewTask")
-  private TblTaskEntity tblTaskEntity;
+  private TblViewTaskEntity tblViewTaskEntity;
 
   @ManyToOne
   @JoinColumn(name = "idUser")
@@ -74,12 +75,12 @@ public class TblTaskEntity {
         this.executor = executor;
     }
 
-    public TblTaskEntity getTblTaskEntity() {
-        return tblTaskEntity;
+    public TblViewTaskEntity getTblViewTaskEntity() {
+        return tblViewTaskEntity;
     }
 
-    public void setTblTaskEntity(TblTaskEntity tblTaskEntity) {
-        this.tblTaskEntity = tblTaskEntity;
+    public void setTblViewTaskEntity(TblViewTaskEntity tblViewTaskEntity) {
+        this.tblViewTaskEntity = tblViewTaskEntity;
     }
 
     public UserEntity getUserEntity() {

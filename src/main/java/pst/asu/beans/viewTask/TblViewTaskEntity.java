@@ -16,7 +16,7 @@ public class TblViewTaskEntity {
   @Column(name="viewTask", nullable = false, length = 20)
   private String viewTask;
 
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "tblTaskEntity")
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "tblViewTaskEntity")
   private Set<TblTaskEntity> taskEntitySet = new HashSet<>();
 
     public long getIdViewTask() {

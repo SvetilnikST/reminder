@@ -20,7 +20,7 @@ public class ViewTaskDAOBean {
         return entityManager.find(TblViewTaskEntity.class, id);
     }
 
-    public List<TblViewTaskEntity> readList() {
+    public List<TblViewTaskEntity> readViewTaskList() {
 
         TypedQuery<TblViewTaskEntity> query = entityManager.createQuery(
                 "from TblViewTaskEntity entity",
