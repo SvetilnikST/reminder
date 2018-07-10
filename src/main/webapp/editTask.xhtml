@@ -28,9 +28,7 @@
                             <h:outputText value="Дата окончания"/>
                         </p:column>
 
-                        <p:column colspan="3">
-                            <h:outputText value="Подразделение"/>
-                        </p:column>
+
                         <p:column colspan="3">
                             <h:outputText value="ответственный"/>
                         </p:column>
@@ -47,7 +45,7 @@
                             <!--<p:inputText id="dateStart" value="#{taskAdministration.dateStarted}"-->
                                          <!--title="dateStart"/>-->
                             <p:calendar id="dateStart" value="#{taskAdministration.dateStarted}"
-                                        pattern="dd.MM.yyyy HH:mm" lang="ru" locale="ru"
+                                        pattern="dd.MM.yyyy HH:mm:ss" lang="ru" locale="ru"
                                         title="Дата выдачи задачи"
                                       />
 
@@ -56,25 +54,13 @@
                             <!--<p:inputText id="dateEnd" value="#{taskAdministration.dateEnd}"-->
                                          <!--title="Статус"/>-->
                             <p:calendar id="dateEnd" value="#{taskAdministration.dateEnd}"
-                                        pattern="dd.MM.yyyy HH:mm" lang="ru" locale="ru"
+                                        pattern="dd.MM.yyyy HH:mm:ss" lang="ru" locale="ru"
                                         title="Дата заверршения задачи"
                             />
 
 
                         </p:column>
-                        <p:column colspan="3">
 
-                            <p:selectOneMenu id="idDepartment" value="#{userAdministration.departmentEntity}"
-                                             converter="omnifaces.SelectItemsConverter"
-                                             var="dep"
-                            >
-                                <f:selectItems value="#{userAdministration.departmentList}" var="department"
-                                               itemLabel="#{department.department}" itemValue="#{department}"/>
-                                <p:column>
-                                    <h:outputText value="#{dep.department}"/>
-                                </p:column>
-                            </p:selectOneMenu>
-                        </p:column>
 
                         <p:column colspan="3">
                             <p:inputText id="executor" value="#{taskAdministration.executor}"
@@ -98,7 +84,7 @@
                     </p:row>
                 </p:panelGrid>
 
-                <p:commandButton value="Сохранить" action="#{userAdministration.save()}"
+                <p:commandButton value="Сохранить" action="#{taskAdministration.save()}"
                                  rendered="#{userBean.doRightVerify('createUser')}"/>
             </p:panel>
         </h:form>

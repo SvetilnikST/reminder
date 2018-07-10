@@ -35,19 +35,24 @@
 
                     <p:row>
                         <p:column colspan="1">Дата начала:</p:column>
-                        <p:column colspan="1"><h:outputText value="#{taskAdministration.dateStarted}"/></p:column>
+                        <p:column colspan="1">
+                            <h:outputText value="#{taskAdministration.dateStarted}"/>
+                            <!--<f:convertDateTime pattern="dd MMMM YYYY г., HH:mm"/>-->
+                        </p:column>
                     </p:row>
 
                     <p:row>
                         <p:column colspan="1">Дата окончания:</p:column>
-                        <p:column colspan="1"><h:outputText value="#{taskAdministration.dateEnd}"/></p:column>
+                        <p:column colspan="1">
+                            <h:outputText value="#{taskAdministration.dateEnd}"/>
+                            <!--<f:convertDateTime pattern="dd MMMM YYYY г., HH:mm"/>-->
+                        </p:column>
                     </p:row>
 
                     <p:row>
                         <p:column colspan="1">Подразделение:</p:column>
                         <p:column colspan="1">
                             <h:outputText value="#{userAdministration.departmentEntity.department}">
-                                <f:convertDateTime pattern="dd MMMM YYYY г., HH:mm"/>
                             </h:outputText>
                         </p:column>
                     </p:row>

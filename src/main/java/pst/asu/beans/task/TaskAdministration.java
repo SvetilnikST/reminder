@@ -17,6 +17,7 @@ import javax.inject.Inject;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -45,8 +46,8 @@ public class TaskAdministration implements Serializable {
     private UserBean userBean;
     private int idTask;
     private String name;
-    private Timestamp dateStarted;
-    private Timestamp dateEnd;
+    private Date dateStarted;
+    private Date dateEnd;
     private String executor;
     TblDepartmentEntity departmentEntity;
     TblViewTaskEntity viewTaskEntity;
@@ -86,19 +87,43 @@ public class TaskAdministration implements Serializable {
         departmentList = departmentDAOBean.readList();
     }
 
-    public void load(TblTaskEntity taskEntity){
+    public void load(TblTaskEntity taskEntity) {
         this.setIdTask(taskEntity.getIdTask());
         this.setName(taskEntity.getName());
-        this.setDateStarted(taskEntity.getDateStarted());
-        this.setDateEnd(taskEntity.getDateEnd());
+        this.setDateStarted(timestampFromDate(taskEntity.getDateStarted()));
+        this.setDateEnd(timestampFromDate(taskEntity.getDateEnd()));
         this.setExecutor(taskEntity.getExecutor());
         this.setViewTaskEntity(tblTaskEntity.getTblViewTaskEntity());
         this.setDepartmentEntity(userBean.getDepartmentEntity());
-
     }
 
+    private Timestamp timestampFromDate(Date fromDate) {
+        return new Timestamp(fromDate.getTime());
+    }
 
+//    private Timestamp timstampFromInt(int valueToTimestamp) {
+//        Long temp = valueToTimestamp * 1000L;
+//        return new Timestamp(temp);
+//    }
 
+    public String save() {
+        tblTaskEntity = taskDAOBean.read(this.idTask);
+        if (tblTaskEntity == null) {
+            tblTaskEntity = new TblTaskEntity();
+        }
+        tblTaskEntity.setName(this.name);
+        tblTaskEntity.setDateStarted(timestampFromDate(this.dateStarted));
+        tblTaskEntity.setDateEnd(timestampFromDate(this.dateEnd));
+        tblTaskEntity.setExecutor(this.executor);
+        tblTaskEntity.setTblViewTaskEntity(viewTaskEntity);
+        if (tblTaskEntity.getIdTask()==0){
+            taskDAOBean.create(tblTaskEntity);
+        }
+        else {
+            taskDAOBean.update(tblTaskEntity);
+        }
+        return "viewTask.xhtml?faces-redirect=true&idTask=" + String.valueOf(tblTaskEntity.getIdTask());
+    }
 
     public TblTaskEntity getTblTaskEntity() {
         return tblTaskEntity;
@@ -148,13 +173,13 @@ public class TaskAdministration implements Serializable {
         this.stope = stope;
     }
 
-    public Integer getMyid() {
-        return myid;
-    }
-
-    public void setMyid(Integer myid) {
-        this.myid = myid;
-    }
+//    public Integer getMyid() {
+//        return myid;
+//    }
+//
+//    public void setMyid(Integer myid) {
+//        this.myid = myid;
+//    }
 
     public TaskDAOBean getTaskDAOBean() {
         return taskDAOBean;
@@ -204,19 +229,20 @@ public class TaskAdministration implements Serializable {
         this.name = name;
     }
 
-    public Timestamp getDateStarted() {
+
+    public Date getDateStarted() {
         return dateStarted;
     }
 
-    public void setDateStarted(Timestamp dateStarted) {
+    public void setDateStarted(Date dateStarted) {
         this.dateStarted = dateStarted;
     }
 
-    public Timestamp getDateEnd() {
+    public Date getDateEnd() {
         return dateEnd;
     }
 
-    public void setDateEnd(Timestamp dateEnd) {
+    public void setDateEnd(Date dateEnd) {
         this.dateEnd = dateEnd;
     }
 
@@ -251,4 +277,5 @@ public class TaskAdministration implements Serializable {
     public void setTblTaskEntitysList(List<TblTaskEntity> tblTaskEntitysList) {
         this.tblTaskEntitysList = tblTaskEntitysList;
     }
+
 }

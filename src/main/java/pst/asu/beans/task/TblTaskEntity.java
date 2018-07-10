@@ -1,5 +1,6 @@
 package pst.asu.beans.task;
 
+import pst.asu.beans.department.TblDepartmentEntity;
 import pst.asu.beans.viewTask.TblViewTaskEntity;
 import pst.asu.entity.auth.UserEntity;
 import javax.persistence.*;
@@ -90,5 +91,4 @@ public class TblTaskEntity {
     public void setUserEntity(UserEntity userEntity) {
         this.userEntity = userEntity;
     }
-
 }
