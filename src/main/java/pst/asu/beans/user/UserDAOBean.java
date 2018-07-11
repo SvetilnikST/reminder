@@ -1,7 +1,6 @@
 package pst.asu.beans.user;
 
 import pst.asu.entity.auth.RolesEntity;
-import pst.asu.entity.auth.UserEntity;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -11,7 +10,6 @@ import javax.persistence.Table;
 import javax.persistence.TypedQuery;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @LocalBean
 @Stateless

@@ -1,7 +1,8 @@
-package pst.asu.entity.auth;
+package pst.asu.beans.user;
 
 import pst.asu.beans.department.TblDepartmentEntity;
 import pst.asu.beans.task.TblTaskEntity;
+import pst.asu.entity.auth.RolesEntity;
 
 import javax.persistence.*;
 import java.util.HashSet;

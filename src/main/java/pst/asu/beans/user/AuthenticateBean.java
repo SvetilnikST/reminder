@@ -4,7 +4,6 @@ import org.apache.commons.lang3.StringUtils;
 import pst.asu.beans.department.TblDepartmentEntity;
 import pst.asu.entity.auth.RightsItemsEntity;
 import pst.asu.entity.auth.RolesEntity;
-import pst.asu.entity.auth.UserEntity;
 import pst.asu.library.BCrypt;
 
 

@@ -4,7 +4,6 @@ import pst.asu.beans.department.DepartmentDAOBean;
 import pst.asu.beans.department.TblDepartmentEntity;
 import pst.asu.entity.auth.RolesDAOBean;
 import pst.asu.entity.auth.RolesEntity;
-import pst.asu.entity.auth.UserEntity;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;

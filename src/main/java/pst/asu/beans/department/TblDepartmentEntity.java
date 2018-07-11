@@ -1,6 +1,6 @@
 package pst.asu.beans.department;
 
-import pst.asu.entity.auth.UserEntity;
+import pst.asu.beans.user.UserEntity;
 
 import javax.persistence.*;
 import java.util.HashSet;

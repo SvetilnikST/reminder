@@ -1,8 +1,7 @@
 package pst.asu.beans.task;
 
-import pst.asu.beans.department.TblDepartmentEntity;
 import pst.asu.beans.viewTask.TblViewTaskEntity;
-import pst.asu.entity.auth.UserEntity;
+import pst.asu.beans.user.UserEntity;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -35,6 +34,8 @@ public class TblTaskEntity {
   @ManyToOne
   @JoinColumn(name = "idUser")
   private UserEntity userEntity;
+
+
 
     public int getIdTask() {
         return idTask;

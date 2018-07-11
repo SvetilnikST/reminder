@@ -3,6 +3,8 @@ package pst.asu.beans.task;
 import pst.asu.beans.department.DepartmentDAOBean;
 import pst.asu.beans.department.TblDepartmentEntity;
 import pst.asu.beans.user.UserBean;
+import pst.asu.beans.user.UserDAOBean;
+import pst.asu.beans.user.UserEntity;
 import pst.asu.beans.viewTask.TblViewTaskEntity;
 import pst.asu.beans.viewTask.ViewTaskDAOBean;
 
@@ -40,6 +42,9 @@ public class TaskAdministration implements Serializable {
     private DepartmentDAOBean departmentDAOBean;
 
     @EJB
+    private UserDAOBean userDAOBean;
+
+    @EJB
     private ViewTaskDAOBean viewTaskDAOBean;
 
     @Inject
@@ -51,6 +56,7 @@ public class TaskAdministration implements Serializable {
     private String executor;
     TblDepartmentEntity departmentEntity;
     TblViewTaskEntity viewTaskEntity;
+    UserEntity userEntity;
 
     private List<TblTaskEntity> tblTaskEntitysList;
 
@@ -76,16 +82,41 @@ public class TaskAdministration implements Serializable {
             this.dateStarted = null;
             this.dateEnd = null;
             this.executor = "";
-            TblViewTaskEntity view = viewTaskDAOBean.read(2);
-            this.viewTaskEntity = view;
-            TblDepartmentEntity dep = departmentDAOBean.read(20);
-            this.departmentEntity = dep;
-
+//            TblDepartmentEntity dep = departmentDAOBean.read(20);
+//            this.departmentEntity = dep;
+//            UserEntity user = userDAOBean.read();
+//            this.userEntity = user;
+//              UserEntity user = userDAOBean.read(userEntity.getId());
+//            this.userEntity = user;
+//            this.userEntity = userDAOBean.read(this.userEntity.getId());
+//            this.userEntity = userDAOBean.read(getMyid());
         }
         tblTaskEntitysList = taskDAOBean.readTaskList();
         viewTaskList = viewTaskDAOBean.readViewTaskList();
         departmentList = departmentDAOBean.readList();
     }
+
+//    @PostConstruct
+//    public void init() {
+//        FacesContext facesContext = FacesContext.getCurrentInstance();
+//        ExternalContext externalContext = facesContext.getExternalContext();
+//        Map<String, String> parameterMap = (Map<String, String>) externalContext.getRequestParameterMap();
+//        String param = parameterMap.get("idTask");
+//
+//        if (param != null) {
+//            idTask = Integer.parseInt(param);
+//
+//            tblTaskEntity = taskDAOBean.read(idTask);
+//            if (tblTaskEntity == null) {
+//                String message = "Внимание, Ошибка. Записи с таким номером не существует.";
+//                FacesContext.getCurrentInstance().addMessage(null,
+//                        new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+//            }
+//            else {
+//                load(tblTaskEntity);
+//            }
+//        }
+//    }
 
     public void load(TblTaskEntity taskEntity) {
         this.setIdTask(taskEntity.getIdTask());
@@ -95,16 +126,12 @@ public class TaskAdministration implements Serializable {
         this.setExecutor(taskEntity.getExecutor());
         this.setViewTaskEntity(tblTaskEntity.getTblViewTaskEntity());
         this.setDepartmentEntity(userBean.getDepartmentEntity());
+        this.setUserEntity(tblTaskEntity.getUserEntity());      ;
     }
 
     private Timestamp timestampFromDate(Date fromDate) {
         return new Timestamp(fromDate.getTime());
     }
-
-//    private Timestamp timstampFromInt(int valueToTimestamp) {
-//        Long temp = valueToTimestamp * 1000L;
-//        return new Timestamp(temp);
-//    }
 
     public String save() {
         tblTaskEntity = taskDAOBean.read(this.idTask);
@@ -116,10 +143,10 @@ public class TaskAdministration implements Serializable {
         tblTaskEntity.setDateEnd(timestampFromDate(this.dateEnd));
         tblTaskEntity.setExecutor(this.executor);
         tblTaskEntity.setTblViewTaskEntity(viewTaskEntity);
-        if (tblTaskEntity.getIdTask()==0){
+        tblTaskEntity.setUserEntity(userEntity);
+        if (tblTaskEntity.getIdTask() == 0) {
             taskDAOBean.create(tblTaskEntity);
-        }
-        else {
+        } else {
             taskDAOBean.update(tblTaskEntity);
         }
         return "viewTask.xhtml?faces-redirect=true&idTask=" + String.valueOf(tblTaskEntity.getIdTask());
@@ -173,13 +200,13 @@ public class TaskAdministration implements Serializable {
         this.stope = stope;
     }
 
-//    public Integer getMyid() {
-//        return myid;
-//    }
-//
-//    public void setMyid(Integer myid) {
-//        this.myid = myid;
-//    }
+    public Integer getMyid() {
+        return myid;
+    }
+
+    public void setMyid(Integer myid) {
+        this.myid = myid;
+    }
 
     public TaskDAOBean getTaskDAOBean() {
         return taskDAOBean;
@@ -278,4 +305,19 @@ public class TaskAdministration implements Serializable {
         this.tblTaskEntitysList = tblTaskEntitysList;
     }
 
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
+    }
+
+    public UserDAOBean getUserDAOBean() {
+        return userDAOBean;
+    }
+
+    public void setUserDAOBean(UserDAOBean userDAOBean) {
+        this.userDAOBean = userDAOBean;
+    }
 }
