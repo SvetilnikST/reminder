@@ -21,6 +21,19 @@ public class UserDAOBean {
         return entityManager.find(UserEntity.class, id);
     }
 
+    public UserEntity readLogin(String login){
+        if(login.isEmpty()){
+            return null;
+        }
+        TypedQuery<UserEntity> query = entityManager.createQuery(
+                "select entity from UserEntity entity where entity.username = :login",
+                UserEntity.class)
+                .setParameter("login",login);
+
+        UserEntity userEntities = query.getSingleResult();
+        return userEntities;
+    }
+
     public List<RolesEntity> readRolesList() {
         TypedQuery<RolesEntity> query = entityManager.createQuery(
                 "select entity from RolesEntity entity",

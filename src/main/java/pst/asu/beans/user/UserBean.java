@@ -21,15 +21,19 @@ import java.util.Map;
 public class UserBean implements Serializable {
 
     private final String COOKIE_NAME = "orderUserName";
-    private final int COOKIE_TIME_TO_REMEMBER = 60*60*24*30*12; //
+    private final int COOKIE_TIME_TO_REMEMBER = 60 * 60 * 24 * 30 * 12; //
+    private UserEntity userEntity;
     private String login;
     private String password;
     private TblDepartmentEntity departmentEntity;
     private boolean authenticated;
-    private Map< String, String > rights = new HashMap< String, String >();
+    private Map<String, String> rights = new HashMap<String, String>();
 
     @EJB
     private AuthenticateBean authenticateBean;
+
+    @EJB
+    private UserDAOBean userDAOBean;
 
 
     public String getLogin() {
@@ -64,12 +68,22 @@ public class UserBean implements Serializable {
         this.departmentEntity = departmentEntity;
     }
 
-    public void doLogin(){
-        authenticated = (authenticateBean.doLogin(login,password)== AuthenticateBean.LoginResult.SUCCESS);
-        if(authenticated){
+
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
+    }
+
+    public void doLogin() {
+        authenticated = (authenticateBean.doLogin(login, password) == AuthenticateBean.LoginResult.SUCCESS);
+        if (authenticated) {
             this.departmentEntity = authenticateBean.getDepartmentEntity(login);
+            this.userEntity = userDAOBean.readLogin(login);
             this.rights = authenticateBean.getRights(login);
-            setCookie(COOKIE_NAME,login,COOKIE_TIME_TO_REMEMBER);
+            setCookie(COOKIE_NAME, login, COOKIE_TIME_TO_REMEMBER);
         }
         try {
             String rootUrl = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
@@ -80,25 +94,20 @@ public class UserBean implements Serializable {
         }
     }
 
-    public String generateHashPass(String pass){
-
+    public String generateHashPass(String pass) {
         return authenticateBean.hashPassword(pass);
     }
 
-    public void doLogout(){
+    public void doLogout() {
         authenticated = false;
         rights.clear();
-        setCookie(COOKIE_NAME, login,0);
+        setCookie(COOKIE_NAME, login, 0);
         try {
             String rootUrl = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
             FacesContext.getCurrentInstance().getExternalContext().redirect(rootUrl);
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void doRegister(){
-
     }
 
     public boolean doRightVerify(String rightItem) {
@@ -112,15 +121,16 @@ public class UserBean implements Serializable {
     }
 
     @PostConstruct
-    private void init(){
-        if(authenticated==false){
+    private void init() {
+        if (authenticated == false) {
             Cookie cookie = getCookie(COOKIE_NAME);
-            if(cookie !=null) {
+            if (cookie != null) {
                 String tmpName = cookie.getValue();
                 if (!StringUtils.isEmpty(tmpName)) {
                     this.login = tmpName;
                     this.departmentEntity = authenticateBean.getDepartmentEntity(login);
                     this.rights = authenticateBean.getRights(login);
+                    this.userEntity = userDAOBean.readLogin(login);
                     authenticated = true;
                 }
             }
@@ -135,7 +145,7 @@ public class UserBean implements Serializable {
         Cookie cookie = null;
 
         Cookie[] userCookies = request.getCookies();
-        if (userCookies != null && userCookies.length > 0 ) {
+        if (userCookies != null && userCookies.length > 0) {
             for (int i = 0; i < userCookies.length; i++) {
                 if (userCookies[i].getName().equals(name)) {
                     cookie = userCookies[i];
@@ -154,7 +164,7 @@ public class UserBean implements Serializable {
         Cookie cookie = null;
 
         Cookie[] userCookies = request.getCookies();
-        if (userCookies != null && userCookies.length > 0 ) {
+        if (userCookies != null && userCookies.length > 0) {
             for (int i = 0; i < userCookies.length; i++) {
                 if (userCookies[i].getName().equals(name)) {
                     cookie = userCookies[i];

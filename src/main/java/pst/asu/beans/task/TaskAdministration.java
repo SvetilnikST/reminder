@@ -82,14 +82,10 @@ public class TaskAdministration implements Serializable {
             this.dateStarted = null;
             this.dateEnd = null;
             this.executor = "";
-//            TblDepartmentEntity dep = departmentDAOBean.read(20);
-//            this.departmentEntity = dep;
-//            UserEntity user = userDAOBean.read();
-//            this.userEntity = user;
-//              UserEntity user = userDAOBean.read(userEntity.getId());
-//            this.userEntity = user;
-//            this.userEntity = userDAOBean.read(this.userEntity.getId());
-//            this.userEntity = userDAOBean.read(getMyid());
+
+            //нужно заполнить ID User
+
+
         }
         tblTaskEntitysList = taskDAOBean.readTaskList();
         viewTaskList = viewTaskDAOBean.readViewTaskList();
@@ -143,7 +139,7 @@ public class TaskAdministration implements Serializable {
         tblTaskEntity.setDateEnd(timestampFromDate(this.dateEnd));
         tblTaskEntity.setExecutor(this.executor);
         tblTaskEntity.setTblViewTaskEntity(viewTaskEntity);
-        tblTaskEntity.setUserEntity(userEntity);
+        tblTaskEntity.setUserEntity(userBean.getUserEntity());
         if (tblTaskEntity.getIdTask() == 0) {
             taskDAOBean.create(tblTaskEntity);
         } else {
